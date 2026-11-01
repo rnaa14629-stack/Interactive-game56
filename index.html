@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AX-2 | Mission Experience</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+:root{
+--bg:#07101d;--panel:#101e30;--line:#293d55;
+--cyan:#55d9ed;--gold:#d5b878;--white:#edf4fb;
+--muted:#9aacc0;--green:#60d6a0;--red:#ff7373;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#172b43,#07101d 65%);
+color:var(--white);font-family:'IBM Plex Sans Arabic',sans-serif;min-height:100vh}
+.wrap{width:min(1000px,94%);margin:auto;padding:20px 0 50px}
+header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:12px 0 18px}
+.brand{font-size:20px;font-weight:700;letter-spacing:1px}
+.brand span{color:var(--cyan)}
+.small{font-size:12px;color:var(--muted)}
+.panel{background:linear-gradient(145deg,#14243a,#0d1929);border:1px solid var(--line);border-radius:16px;padding:22px;margin:16px 0}
+.eyebrow{font-size:11px;color:var(--cyan);letter-spacing:2px}
+h1{font-size:clamp(27px,5vw,43px);margin:10px 0}
+h2{margin:5px 0 12px;font-size:23px}
+p{color:var(--muted);line-height:1.9}
+button,input{font:inherit}
+button{cursor:pointer}
+input{width:100%;padding:14px;background:#081321;border:1px solid var(--line);border-radius:9px;color:white;margin:12px 0}
+.btn{border:1px solid var(--cyan);background:var(--cyan);color:#06121d;border-radius:9px;padding:12px 20px;font-weight:700}
+.btn.secondary{background:transparent;color:white;border-color:var(--line)}
+.btn.gold{background:var(--gold);border-color:var(--gold)}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:17px 0}
+.stat{background:#0a1727;border:1px solid var(--line);padding:13px;border-radius:10px}
+.stat strong{display:block;color:var(--cyan);font-size:23px}
+.stat span{color:var(--muted);font-size:11px}
+.timer{color:var(--gold)!important;font-variant-numeric:tabular-nums}
+.timer.danger{color:var(--red)!important}
+.progress{height:5px;background:#26384e;border-radius:8px;overflow:hidden;margin:15px 0}
+.progress div{height:100%;background:var(--cyan);width:0;transition:.3s}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stage{border:1px solid var(--line);border-radius:9px;padding:11px 5px;text-align:center;color:var(--muted);font-size:12px}
+.stage.active{border-color:var(--cyan);color:var(--cyan)}
+.stage.done{border-color:var(--green);color:var(--green)}
+.instrument{background:#071522;border:1px solid var(--line);border-radius:12px;padding:15px;margin:12px 0}
+.instrument strong{color:var(--cyan)}
+.bar{height:8px;background:#24354a;border-radius:8px;margin:9px 0;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--cyan);transition:.3s}
+.control{background:#0a1727;color:white;border:1px solid var(--line);padding:13px;border-radius:9px}
+.control:hover{border-color:var(--cyan)}
+.control.selected{border-color:var(--green);color:var(--green)}
+.feedback{min-height:28px;color:var(--gold);font-size:13px;margin:12px 0}
+.arena{background:radial-gradient(ellipse,#142d45,#081421 75%);border:1px solid var(--line);border-radius:13px;padding:18px;margin:15px 0;min-height:150px;position:relative;overflow:hidden}
+.rocket{font-size:55px;text-align:center;transition:.4s}
+.space{display:flex;justify-content:space-around;align-items:center;min-height:100px;font-size:42px}
+#ship{transition:.2s;display:inline-block}
+#station{font-size:48px}
+#samples{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+.sample{padding:15px;border:1px solid var(--line);background:#0a1727;border-radius:10px;min-width:90px;text-align:center}
+.sample.good{border-color:var(--green);color:var(--green)}
+.sample.bad{border-color:var(--red);color:var(--red)}
+.event{border:1px solid #76643e;background:linear-gradient(145deg,#28251c,#111e2e);padding:20px;border-radius:14px;margin-top:15px}
+.event .date{color:var(--gold);font-size:13px}
+.event h3{color:#efdfb8}
+.event p{color:#d1d9e2}
+.event a{color:var(--gold)}
+.hidden{display:none!important}
+table{width:100%;border-collapse:collapse}
+td,th{text-align:right;padding:11px;border-bottom:1px solid var(--line)}
+th{font-size:12px;color:var(--muted)}
+.certificate{background:#f3efe4;color:#17283b;border:8px double #b69a5e;text-align:center;padding:32px 15px;margin-top:15px}
+.certificate h2{color:#9a793a;font-size:28px}
+.certificate .name{font-size:29px;font-weight:700;margin:20px 0}
+.certificate p{color:#35465b}
+footer{text-align:center;color:#667b91;font-size:11px;margin-top:30px}
+@media(max-width:600px){.panel{padding:15px}.stages{grid-template-columns:repeat(2,1fr)}.stats{gap:5px}.stat{padding:9px}}
+@media print{body{background:white}.no-print,header,footer{display:none!important}.wrap{width:100%}.certificate{display:block!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div>
+  <div class="brand">AX-2 <span>MISSION EXPERIENCE</span></div>
+  <div class="small">رحلة سعودية إلى محطة الفضاء الدولية</div>
+ </div>
+ <button class="btn secondary no-print" id="sound" onclick="toggleSound()">🔊 الصوت يعمل</button>
+</header>
+
+<section id="welcome" class="panel">
+ <div class="eyebrow">MISSION CONTROL / SAUDI SPACE STORY</div>
+ <h1>مهمتك تبدأ الآن.</h1>
+ <p>عش تجربة تفاعلية مستوحاة من رحلة ريانة برناوي وعلي القرني إلى محطة الفضاء الدولية ضمن مهمة أكسيوم 2.</p>
+ <p class="small">أربع مراحل، قرارات تحت ضغط الوقت، وسجل تاريخي حقيقي بعد كل مرحلة.</p>
+ <label>اسم المشارك</label>
+ <input id="player" maxlength="28" placeholder="اكتب اسمك">
+ <button class="btn" onclick="start()">بدء المهمة ←</button>
+</section>
+
+<section id="game" class="hidden">
+ <div class="row" style="justify-content:space-between">
+  <div><div class="eyebrow">MISSION IN PROGRESS</div><h2 id="hello"></h2></div>
+  <span class="small" id="stageNumber"></span>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong id="points">0</strong><span>النقاط</span></div>
+  <div class="stat"><strong class="timer" id="clock">60</strong><span>ثانية متبقية</span></div>
+  <div class="stat"><strong id="done">0/4</strong><span>المراحل المكتملة</span></div>
+ </div>
+ <div class="progress"><div id="progress"></div></div>
+ <div class="stages" id="stageList"></div>
+ <div class="panel" id="challenge">
+  <div class="eyebrow" id="eyebrow"></div>
+  <h2 id="title"></h2>
+  <p id="intro"></p>
+  <div id="play"></div>
+  <div class="feedback" id="feedback"></div>
+ </div>
+ <div id="event" class="event hidden">
+  <div class="eyebrow">REAL MISSION RECORD / سجل تاريخي</div>
+  <div class="date" id="eventDate"></div>
+  <h3 id="eventTitle"></h3>
+  <p id="eventText"></p>
+  <p class="small" id="eventSource"></p>
+  <button class="btn gold" onclick="next()">متابعة المهمة ←</button>
+ </div>
+</section>
+
+<section id="results" class="hidden">
+ <div class="panel">
+  <div class="eyebrow">MISSION COMPLETE</div>
+  <h1>اكتملت المهمة بنجاح!</h1>
+  <p id="resultText"></p>
+  <div class="stats">
+   <div class="stat"><strong id="finalPoints"></strong><span>مجموع النقاط</span></div>
+   <div class="stat"><strong>4/4</strong><span>التحديات المكتملة</span></div>
+   <div class="stat"><strong id="rank"></strong><span>ترتيبك</span></div>
+  </div>
+ </div>
+ <div class="panel">
+  <h2>لوحة المتصدرين</h2>
+  <p>أفضل عشر نتائج على هذا الجهاز.</p>
+  <div style="overflow-x:auto"><table>
+   <thead><tr><th>#</th><th>المشارك</th><th>النقاط</th><th>التاريخ</th></tr></thead>
+   <tbody id="leaderboard"></tbody>
+  </table></div>
+ </div>
+ <div class="panel">
+  <h2>شهادة إتمام التجربة</h2>
+  <div class="certificate">
+   <div style="color:#94733a;font-size:12px">AXIOM MISSION 2 · EDUCATIONAL EXPERIENCE</div>
+   <h2>شهادة إتمام تجربة تفاعلية</h2>
+   <p>تُمنح هذه الشهادة إلى</p>
+   <div class="name" id="certName"></div>
+   <p>لإتمامه مراحل تجربة AX-2 التفاعلية التعليمية</p>
+   <p>مجموع النقاط: <strong id="certPoints"></strong></p>
+   <p id="certDate"></p>
+   <p style="font-size:11px">شهادة تعليمية غير رسمية، وليست صادرة عن NASA أو Axiom Space أو SpaceX.</p>
+  </div>
+  <div class="row no-print" style="margin-top:15px">
+   <button class="btn gold" onclick="window.print()">طباعة / حفظ PDF</button>
+   <button class="btn secondary" onclick="newPlayer()">مشارك جديد</button>
+  </div>
+ </div>
+</section>
+<footer>AX-2 MISSION EXPERIENCE · تجربة تعليمية مستقلة</footer>
+</div>
+
+<script>
+const records=[
+{
+name:"الإطلاق",
+date:"21 مايو 2023",
+title:"انطلاق مهمة أكسيوم 2",
+text:"انطلق صاروخ Falcon 9 من مركز كينيدي للفضاء في فلوريدا، حاملًا مركبة Dragon وعلى متنها طاقم Ax-2، ومن بينهم ريانة برناوي وعلي القرني.",
+source:"NASA / SpaceX",
+url:"https://www.nasa.gov/blogs/spacestation/2023/05/21/four-private-astronauts-launch-toward-space-station/"
+},
+{
+name:"الالتحام",
+date:"22 مايو 2023",
+title:"الوصول إلى محطة الفضاء الدولية",
+text:"التحمت مركبة Dragon Freedom بمحطة الفضاء الدولية. وبعد فتح الفتحة، انضم أفراد طاقم Ax-2 إلى طاقم المحطة.",
+source:"NASA",
+url:"https://www.nasa.gov/news-release/axiom-space-private-astronauts-headed-to-international-space-station/"
+},
+{
+name:"الأبحاث",
+date:"21–30 مايو 2023",
+title:"أبحاث علمية في المدار",
+text:"نفذ طاقم Ax-2 أكثر من 20 تجربة ونشاطًا بحثيًا وتوعويًا في مجالات علمية متنوعة. شاركت ريانة برناوي في أنشطة بحثية ضمن برنامج المهمة.",
+source:"Axiom Space",
+url:"https://axiomspace.com/missions/ax2"
+},
+{
+name:"العودة",
+date:"30 مايو 2023",
+title:"عودة الطاقم إلى الأرض",
+text:"عادت مركبة Dragon Freedom بطاقم Ax-2 إلى الأرض، وهبطت في مياه قبالة ساحل فلوريدا. انتهت بذلك مهمة الطاقم الفضائية.",
+source:"Axiom Space",
+url:"https://www.axiomspace.com/mission-blog/ax2-splashdown"
+}
+];
+
+let name="",score=0,stage=0,time=60,tick=null,done=0;
+let soundOn=true,ctx=null,locked=false;
+let docking={x:0,y:0,speed:2};
+let launchState=[false,false,false];
+let labState=[];
+let returnState={angle:0,sequence:[]};
+
+function tone(f=600,d=.15,type="sine"){
+ if(!soundOn)return;
+ try{
+  ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();
+  if(ctx.state==="suspended")ctx.resume();
+  let o=ctx.createOscillator(),g=ctx.createGain();
+  o.type=type;o.frequency.value=f;g.gain.value=.07;
+  g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d);
+  o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+d);
+ }catch(e){}
+}
+function toggleSound(){
+ soundOn=!soundOn;
+ document.getElementById("sound").textContent=soundOn?"🔊 الصوت يعمل":"🔇 الصوت مكتوم";
+ tone();
+}
+function start(){
+ let n=document.getElementById("player").value.trim();
+ if(!n){alert("اكتب اسم المشارك أولًا");return}
+ name=n.slice(0,28);
+ document.getElementById("welcome").classList.add("hidden");
+ document.getElementById("game").classList.remove("hidden");
+ document.getElementById("hello").textContent="مرحبًا، "+name;
+ loadStage();
+}
+function update(){
+ document.getElementById("points").textContent=score;
+ document.getElementById("done").textContent=done+"/4";
+ document.getElementById("progress").style.width=(done/4*100)+"%";
+ document.getElementById("stageNumber").textContent="المرحلة "+(stage+1)+" من 4";
+ document.getElementById("stageList").innerHTML=records.map((r,i)=>
+ `<div class="stage ${i===stage?"active":i<done?"done":""}">${i+1}<br>${r.name}</div>`).join("");
+}
+function clock(){
+ document.getElementById("clock").textContent=time;
+ document.getElementById("clock").classList.toggle("danger",time<=10);
+}
+function startTimer(){
+ clearInterval(tick);time=60;clock();
+ tick=setInterval(()=>{
+  time--;clock();
+  if(time<=10&&time>0)tone(850,.07,"square");
+  if(time<=0){clearInterval(tick);fail("انتهى الوقت!");}
+ },1000);
+}
+function loadStage(){
+ locked=false;update();
+ document.getElementById("challenge").classList.remove("hidden");
+ document.getElementById("event").classList.add("hidden");
+ document.getElementById("eyebrow").textContent="STAGE 0"+(stage+1)+" / MISSION CONTROL";
+ const intro=[
+ "جهّز لوحة الإطلاق. فعّل الأنظمة الثلاثة بالترتيب الصحيح قبل بدء العد التنازلي.",
+ "تحكم بالمركبة الفضائية وقرّبها من المحطة. حاول الوصول إلى منطقة الالتحام الآمنة.",
+ "افحص نتائج العينات، واختر العينات التي تحقق شروط التجربة. هذه بيانات تدريبية افتراضية وليست نتائج AX-2.",
+ "اضبط زاوية الدخول، ثم نفّذ مراحل العودة بالترتيب الصحيح."
+ ];
+ document.getElementById("title").textContent=records[stage].name;
+ document.getElementById("intro").textContent=intro[stage];
+ document.getElementById("feedback").textContent="";
+ if(stage===0)launchGame();
+ if(stage===1)dockingGame();
+ if(stage===2)labGame();
+ if(stage===3)returnGame();
+ startTimer();
+}
+function launchGame(){
+ launchState=[false,false,false];
+ const labels=["فحص أنظمة المركبة","التحقق من جاهزية الطاقم","تأكيد جاهزية الإطلاق"];
+ document.getElementById("play").innerHTML=`
+ <div class="arena"><div class="rocket" id="rocket">🚀</div>
+ <div class="small" style="text-align:center">LAUNCH VEHICLE STATUS</div></div>
+ <div class="instrument">
+ <div>جاهزية الأنظمة <strong id="launchPct">0%</strong></div>
+ <div class="bar"><i id="launchBar"></i></div>
+ <div class="small">فعّل الإجراءات الثلاثة بالترتيب من 1 إلى 3.</div>
+ </div>
+ <div id="launchBtns"></div>
+ <button class="btn" style="margin-top:15px" id="launchBtn" onclick="launchNow()" disabled>بدء العد التنازلي</button>`;
+ document.getElementById("launchBtns").innerHTML=labels.map((x,i)=>
+ `<button class="control" style="width:100%;margin:5px 0" id="l${i}" onclick="launchToggle(${i})">${i+1}. ${x}</button>`).join("");
+}
+function launchToggle(i){
+ if(locked)return;
+ if(i!==launchState.filter(Boolean).length){
+  tone(160,.3,"sawtooth");document.getElementById("feedback").textContent="ترتيب غير صحيح. ابدأ بالخطوة الأولى.";return;
+ }
+ launchState[i]=true;
+ document.getElementById("l"+i).classList.add("selected");
+ document.getElementById("l"+i).disabled=true;
+ let pct=launchState.filter(Boolean).length/3*100;
+ document.getElementById("launchPct").textContent=pct+"%";
+ document.getElementById("launchBar").style.width=pct+"%";
+ tone(650+i*150,.15);
+ if(i===2)document.getElementById("launchBtn").disabled=false;
+}
+function launchNow(){
+ if(locked||!launchState.every(Boolean))return;
+ let count=5;
+ document.getElementById("launchBtn").disabled=true;
+ document.getElementById("feedback").textContent="بدء تسلسل الإطلاق...";
+ const el=document.getElementById("rocket");
+ const id=setInterval(()=>{
+  document.getElementById("feedback").textContent="T - "+count;
+  tone(count<=2?1000:500,.12);
+  count--;
+  if(count<0){
+   clearInterval(id);el.style.transform="translateY(-100px) scale(1.2)";
+   setTimeout(()=>success(150,"تم تنفيذ تسلسل الإطلاق في المحاكاة."),400);
+  }
+ },650);
+}
+function dockingGame(){
+ docking={x:0,y:0,speed:2};
+ document.getElementById("play").innerHTML=`
+ <div class="arena">
+  <div class="space"><span id="ship">🚀</span><span id="station">🛰️</span></div>
+  <div class="small" style="text-align:center">APPROACH SIMULATION</div>
+ </div>
+ <div class="instrument">
+  <div>مسافة الاقتراب: <strong id="distance">100</strong></div>
+  <div class="bar"><i id="dockBar"></i></div>
+  <div>سرعة المركبة: <strong id="speed">2</strong></div>
+  <div class="small">اقترب من المحطة بتحكم متدرج. لا تتجاوز مسافة الصفر.</div>
+ </div>
+ <div class="row" style="justify-content:center">
+  <button class="control" onclick="moveShip('up')">↑</button>
+ </div>
+ <div class="row" style="justify-content:center">
+  <button class="control" onclick="moveShip('left')">←</button>
+  <button class="control" onclick="moveShip('slow')">خفض السرعة</button>
+  <button class="control" onclick="moveShip('right')">→</button>
+ </div>
+ <div class="row" style="justify-content:center">
+  <button class="control" onclick="moveShip('down')">↓</button>
+  <button class="control" onclick="moveShip('fast')">زيادة السرعة</button>
+ </div>
+ <div class="small" style="margin-top:10px">المطلوب: مسافة 0–10، سرعة 1–3، ومحاذاة أفقية وعمودية مناسبة.</div>`;
+}
+function moveShip(action){
+ if(locked)return;
+ if(action==="up")docking.y--;
+ if(action==="down")docking.y++;
+ if(action==="left")docking.x--;
+ if(action==="right")docking.x++;
+ if(action==="slow")docking.speed=Math.max(1,docking.speed-1);
+ if(action==="fast")docking.speed=Math.min(5,docking.speed+1);
+ let dist=Math.max(0,100-(Math.abs(docking.x)+Math.abs(docking.y))*8);
+ document.getElementById("distance").textContent=dist;
+ document.getElementById("speed").textContent=docking.speed;
+ document.getElementById("dockBar").style.width=(100-dist)+"%";
+ document.getElementById("ship").style.transform=`translate(${docking.x*9}px,${docking.y*9}px)`;
+ tone(400+docking.speed*100,.08);
+ if(dist<=10){
+  if(Math.abs(docking.x)<=1&&Math.abs(docking.y)<=1&&docking.speed<=3){
+   success(180,"أحسنت! وصلت إلى منطقة الالتحام الآمنة.");
+  }else{
+   document.getElementById("feedback").textContent="قريب من المحطة، لكن اضبط المحاذاة والسرعة.";
+  }
+ }
+}
+function labGame(){
+ const data=[
+ {id:"A",value:12,ok:false,desc:"العينة A"},
+ {id:"B",value:28,ok:true,desc:"العينة B"},
+ {id:"C",value:17,ok:false,desc:"العينة C"},
+ {id:"D",value:31,ok:true,desc:"العينة D"}
+ ];
+ labState=[];
+ document.getElementById("play").innerHTML=`
+ <div class="instrument">
+ <strong>ملف البيانات / DATA FILE 04</strong>
+ <p class="small">مطلوب تحديد العينات التي تتجاوز قيمة المؤشر 20 وحدة.</p>
+ <div id="samples"></div>
+ </div>
+ <div class="row">
+ <button class="btn" onclick="checkSamples()">إرسال التحليل</button>
+ <button class="btn secondary" onclick="resetSamples()">إعادة الاختيار</button>
+ </div>
+ <div class="small">هذه أرقام افتراضية صممت للتدريب ولا تمثل قياسات علمية فعلية من مهمة AX-2.</div>`;
+ document.getElementById("samples").innerHTML=data.map(x=>
+ `<button class="sample" id="sample${x.id}" onclick="selectSample('${x.id}')">${x.desc}<br><strong>${x.value}</strong><br><span class="small">وحدة افتراضية</span></button>`).join("");
+}
+function selectSample(id){
+ if(locked)return;
+ const i=labState.indexOf(id);
+ if(i>=0)labState.splice(i,1);else labState.push(id);
+ document.getElementById("sample"+id).classList.toggle("good",labState.includes(id));
+ tone(550,.08);
+}
+function resetSamples(){labState=[];document.querySelectorAll(".sample").forEach(x=>x.classList.remove("good"))}
+function checkSamples(){
+ if(locked)return;
+ locked=true;
+ let right=labState.length===2&&labState.includes("B")&&labState.includes("D");
+ if(right)success(180,"تحليل صحيح! اخترت العينات التي تتجاوز العتبة.");
+ else fail("الاختيار غير دقيق. كانت العينتان المطلوبتان B وD.");
+}
+function returnGame(){
+ returnState={angle:0,sequence:[]};
+ document.getElementById("play").innerHTML=`
+ <div class="arena">
+  <div style="text-align:center;font-size:52px" id="capsule">🛸</div>
+  <div class="small" style="text-align:center">EARTH RETURN SIMULATION</div>
+ </div>
+ <div class="instrument">
+  زاوية الدخول: <strong id="angle">-5°</strong>
+  <input type="range" id="angleRange" min="-10" max="0" value="-5" oninput="setAngle(this.value)">
+  <div class="small">اضبط الزاوية على المجال الآمن المبسط من -6 إلى -4 درجات.</div>
+ </div>
+ <div class="instrument">
+  <strong>ترتيب إجراءات العودة</strong>
+  <div id="returnBtns"></div>
+  <p class="small">اضغط الإجراءات بالترتيب الصحيح.</p>
+ </div>
+ <button class="btn" onclick="finishReturn()">تأكيد العودة</button>`;
+ document.getElementById("returnBtns").innerHTML=[
+ "الانفصال عن محطة الفضاء",
+ "الدخول الجوي",
+ "فتح المظلات والهبوط المائي"
+ ].map((x,i)=>`<button class="control" id="r${i}" style="width:100%;margin:5px 0" onclick="returnStep(${i})">${i+1}. ${x}</button>`).join("");
+}
+function setAngle(v){
+ returnState.angle=Number(v);
+ document.getElementById("angle").textContent=v+"°";
+ document.getElementById("capsule").style.transform=`rotate(${(v+5)*3}deg)`;
+}
+function returnStep(i){
+ if(locked)return;
+ if(i!==returnState.sequence.length){
+  tone(150,.3,"sawtooth");
+  document.getElementById("feedback").textContent="هذا ليس الترتيب الصحيح. حاول مجددًا.";
+  return;
+ }
+ returnState.sequence.push(i);
+ document.getElementById("r"+i).classList.add("selected");
+ document.getElementById("r"+i).disabled=true;
+ tone(700+i*100,.15);
+}
+function finishReturn(){
+ if(locked)return;
+ if(returnState.sequence.length!==3){document.getElementById("feedback").textContent="أكمل جميع خطوات العودة أولًا.";return}
+ if(returnState.angle>=-6&&returnState.angle<=-4){
+  success(200,"هبوط آمن في المحاكاة! أحسنت.");
+ }else{
+  fail("زاوية الدخول خارج المجال الآمن المحدد في هذه المحاكاة.");
+ }
+}
+function success(base,msg){
+ if(locked)return;
+ locked=true;clearInterval(tick);
+ let bonus=Math.max(0,time);
+ score+=base+bonus;
+ document.getElementById("feedback").textContent=msg+" +"+(base+bonus)+" نقطة";
+ tone(900,.2);setTimeout(()=>tone(1200,.25),180);
+ setTimeout(showEvent,900);
+}
+function fail(msg){
+ if(locked)return;
+ locked=true;clearInterval(tick);
+ document.getElementById("feedback").textContent=msg;
+ tone(170,.4,"sawtooth");
+ setTimeout(showEvent,1000);
+}
+function showEvent(){
+ clearInterval(tick);
+ document.getElementById("challenge").classList.add("hidden");
+ document.getElementById("event").classList.remove("hidden");
+ const r=records[stage];
+ document.getElementById("eventDate").textContent=r.date;
+ document.getElementById("eventTitle").textContent=r.title;
+ document.getElementById("eventText").textContent=r.text;
+ document.getElementById("eventSource").innerHTML=
+ `المصدر: <a href="${r.url}" target="_blank" rel="noopener">${r.source} — فتح المصدر الأصلي</a>`;
+ if(stage>=done)done=stage+1;
+ update();
+}
+function next(){
+ stage++;
+ if(stage===4){finish();return}
+ loadStage();
+}
+function board(){
+ try{return JSON.parse(localStorage.getItem("ax2_board")||"[]")}catch(e){return []}
+}
+function finish(){
+ document.getElementById("game").classList.add("hidden");
+ document.getElementById("results").classList.remove("hidden");
+ const entry={name,score,date:new Date().toLocaleDateString("ar-SA"),id:Date.now()};
+ let list=board();list.push(entry);list.sort((a,b)=>b.score-a.score);
+ list=list.slice(0,10);localStorage.setItem("ax2_board",JSON.stringify(list));
+ let rank=list.findIndex(x=>x.id===entry.id);
+ document.getElementById("finalPoints").textContent=score;
+ document.getElementById("rank").textContent=rank<0?"—":"#"+(rank+1);
+ document.getElementById("resultText").textContent=`أحسنت يا ${name}. أكملت جميع مراحل AX-2 MISSION EXPERIENCE.`;
+ document.getElementById("certName").textContent=name;
+ document.getElementById("certPoints").textContent=score;
+ document.getElementById("certDate").textContent=new Date().toLocaleDateString("ar-SA");
+ document.getElementById("leaderboard").innerHTML=list.map((x,i)=>
+ `<tr><td>${i+1}</td><td>${safe(x.name)}</td><td>${x.score}</td><td>${x.date}</td></tr>`).join("");
+ tone(1000,.3);setTimeout(()=>tone(1300,.4),250);
+}
+function safe(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function newPlayer(){
+ clearInterval(tick);name="";score=0;stage=0;done=0;
+ document.getElementById("results").classList.add("hidden");
+ document.getElementById("welcome").classList.remove("hidden");
+ document.getElementById("player").value="";
+}
+</script>
+</body>
+</html>
